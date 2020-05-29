@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      </head>
+      <body>
+        <div class="container">
+          <div class="table_responsive">
+          <img src="C:\Users\ABHI\Desktop\internship ppt\logo.png">
+          <br/>
+         
+        <table class="table" id="employee_table"> <!--table in which the data will be showed-->
+<tr>
+        <td> <strong>ArticleText</strong></td>
+        <td> <strong>ArticleTitle</strong></td>
+        <td> <strong>Date</strong> </td>
+        <td>  <strong>Image</strong></td>
+        <td>  <strong>websiteName</strong></td>
+</tr>
+</table>
+</div>
+</div>
+
+<script type=text/javascript>
+const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+const d = new Date();
+
+var currentTime = new Date()
+var month = monthNames[d.getMonth()]
+var day = currentTime.getDate()
+var year = currentTime.getFullYear()
+var date = day + "-" + month + "-"  + year
+   
+  $(document).ready(function(){
+    $.getJSON("http://14.140.65.88/service/service/GetAllArticles.php",function(data)//put the php link here where the json data is coming
+    {
+      var employee_data='';
+     
+      $.each(data,function(key,value)
+      {
+        employee_data +='<tr>';
+            employee_data += '<td>'+value.ArticleText+'</td>'
+                employee_data +='<td><a href="'+value.ArticleURL+'"target="_blank"> '+value.ArticleTitle+'</a></td>'
+                employee_data +='<td>'+date+'</td>'
+               // employee_data +='<td>'+value.Date+'</td>'
+                employee_data +='<td><img src="'+value.ImgUrl+'"height="120" width="180"></td>'
+                employee_data +='<td>'+value. websiteName+'</td>' 
+               employee_data +='</tr>';
+        });
+        $('#employee_table').append(employee_data);
+      })
+  
+      })
+  </script>
+      </body>
+      </html>
